@@ -16,10 +16,10 @@ class AppointmentController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $appointments = $user->isAdmin() ? Appointment::with('user')->orderBy('start_time','asc')->get() : Appointment::where('user_id', $user->id )->orderBy('start_time')->get();
+        $appointments = $user?->isAdmin() ? Appointment::with('user')->orderBy('start_time','asc')->get() : Appointment::where('user_id', $user?->id )->orderBy('start_time')->get();
 
 
-        return Inertia::render('appointments/Index', ['appointments' => $appointments, 'isAdmin' => $user->isAdmin()]);
+        return Inertia::render('appointments/Index', ['appointments' => $appointments, 'isAdmin' => $user?->isAdmin()]);
     }
 
     /**

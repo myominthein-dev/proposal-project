@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ExportController;
 use App\Mail\FollowUp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -19,9 +20,7 @@ Route::get('dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::get('/appointment', function () {
-    return 'gg';
-})->middleware(['auth','verified'])->name('appointment');
+
 
 Route::resource('/appointments',AppointmentController::class)->names([
     'index' => 'appointments.list',
@@ -31,7 +30,7 @@ Route::resource('/appointments',AppointmentController::class)->names([
     'edit' => 'appointments.modify',
     'update' => 'appointments.change',
     'destroy' => 'appointments.delete',
-]);
+])->middleware(['auth','verified']);
 
 // Mail sending
 
@@ -43,5 +42,7 @@ Route::post('/mail/send',function (Request $request) {
     return to_route('appointments.list');
 })->middleware(['auth','verified']);
 
+
+Route::get('/export/appointments',[ExportController::class,'exportCSV'])->middleware(['auth','verified']);
 
 require __DIR__.'/settings.php';

@@ -7,12 +7,22 @@
           <Heading as="h1" title="Appointments" class="text-3xl">Appointments</Heading>
           <p class="text-sm text-gray-600">Manage your appointments</p>
         </div>
-        <Link href="/appointments/create" class="inline-flex">
-          <Button class="dark:bg-gray-400">
+        <div class="flex gap-2">
+         <!-- Export Button -->
+         <a v-if="isAdmin" :href="`/export/appointments?search=${searchQuery}`" class="inline-flex">
+            <Button class="bg-blue-600 hover:bg-blue-700 text-white">
+              <Download class="mr-2 h-4 w-4" />
+              Export to CSV
+            </Button>
+          </a>
+
+          <Link href="/appointments/create" class="inline-flex">
+          <Button class="dark:bg-gray-200">
             <Plus class="mr-2 h-4 w-4" />
             New Appointment
           </Button>
         </Link>
+        </div>
       </div>
 
       <div class="flex gap-2">
@@ -138,7 +148,7 @@
 import Heading from '@/components/Heading.vue';
 import Button from '@/components/ui/button/Button.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { Calendar, Edit, Mail, Plus, Send, Trash2 } from 'lucide-vue-next';
+import { Calendar, Download, Edit, Mail, Plus, Send, Trash2 } from 'lucide-vue-next';
 import { computed, ref, onMounted, onBeforeUnmount, reactive } from 'vue';
 import { Link, useForm } from '@inertiajs/vue3';
 const props = defineProps({
