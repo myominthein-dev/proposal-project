@@ -24,11 +24,6 @@ const page = usePage();
 
 const mainNavItems = [
     {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
-    },
-    {
         title: 'Appointments',
         href: '/appointments',
         icon: Calendar,

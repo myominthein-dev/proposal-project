@@ -56,7 +56,10 @@ class AppointmentController extends Controller
      */
     public function show(Appointment $appointment)
     {
-        //
+        $appointment = $appointment->load('user');
+        return Inertia::render('appointments/Show',[
+            'appointment' => $appointment
+        ]);
     }
 
     /**
@@ -75,7 +78,7 @@ class AppointmentController extends Controller
     public function update(UpdateAppointmentRequest $request, Appointment $appointment)
     {
         $validated = $request->validated();
-
+    
         $appointment->update([
             'title' => $request->title,
             'descrition' => $request->description,

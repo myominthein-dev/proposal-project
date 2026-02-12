@@ -36,8 +36,6 @@ class UpdateAppointmentRequest extends FormRequest
         ],
 
         'location' => ['nullable', 'string', 'max:255'],
-
-        'reminder_sent' => ['sometimes', 'boolean'],
     ];
     }
 }

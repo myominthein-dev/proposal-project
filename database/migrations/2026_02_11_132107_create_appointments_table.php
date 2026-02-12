@@ -19,8 +19,8 @@ return new class extends Migration
             $table->dateTime('start_time');
             $table->dateTime('end_time');
             $table->string('location')->nullable();
-             $table->enum('status', ['pending', 'confirmed', 'cancelled', 'completed'])->default('pending');
-             $table->boolean('reminder_sent')->default(false);
+            $table->enum('status', ['pending', 'confirmed', 'cancelled', 'completed'])->default('pending');
+             
             $table->timestamps();
         });
     }

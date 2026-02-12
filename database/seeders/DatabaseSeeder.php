@@ -39,9 +39,5 @@ class DatabaseSeeder extends Seeder
             'role' => 'user',
             'email_verified_at' => Carbon::now()
         ]);
-
-        $this->call([
-            AppointmentSeeder::class
-        ]);
     }
 }

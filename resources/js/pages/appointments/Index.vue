@@ -68,16 +68,21 @@
               </td>
               <td class="px-6 py-4 text-right">
                 <div class="flex justify-end gap-2">
-                  <Button v-if="isAdmin" @click="open(appointment)" class="dark:bg-transparent" variant="outline" size="sm">
+                  <Button v-if="isAdmin" @click="open(appointment)" class="cursor-pointer dark:bg-transparent" variant="outline" size="sm">
                     <Send class="h-4 w-4 dark:text-blue-500" />
                   </Button>
+                  <Link :href="`/appointments/${appointment.id}`">
+                    <Button class="cursor-pointer" variant="outline" size="sm">
+                      <ListIcon class="h-4 w-4 dark:text-white" />
+                    </Button>
+                  </Link>
                   <Link :href="`/appointments/${appointment.id}/edit`">
-                    <Button variant="outline" size="sm">
+                    <Button class="cursor-pointer" variant="outline" size="sm">
                       <Edit class="h-4 w-4 dark:text-white" />
                     </Button>
                   </Link>
                   <Button size="sm" @click="deleteAppointment(appointment.id)"
-                    class="bg-red-600 dark:border border-red-600 dark:bg-transparent">
+                    class="bg-red-600 cursor-pointer dark:border border-red-600 dark:bg-transparent">
                     <Trash2 class="h-4 w-4 dark:text-red-600" />
                   </Button>
                 </div>
@@ -148,7 +153,7 @@
 import Heading from '@/components/Heading.vue';
 import Button from '@/components/ui/button/Button.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { Calendar, Download, Edit, Mail, Plus, Send, Trash2 } from 'lucide-vue-next';
+import { Calendar, Download, Edit, ListIcon, Mail, Plus, Send, Trash2 } from 'lucide-vue-next';
 import { computed, ref, onMounted, onBeforeUnmount, reactive } from 'vue';
 import { Link, useForm } from '@inertiajs/vue3';
 const props = defineProps({
