@@ -16,7 +16,7 @@ class AppointmentController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $appointments = $user?->isAdmin() ? Appointment::with('user')->orderBy('start_time','asc')->get() : Appointment::where('user_id', $user?->id )->orderBy('start_time')->get();
+        $appointments = $user?->isAdmin() ? Appointment::with('user')->orderBy('start_time','asc')->get() : Appointment::where('user_id', $user?->id )->orderBy('start_time','asc')->get();
 
 
         return Inertia::render('appointments/Index', ['appointments' => $appointments, 'isAdmin' => $user?->isAdmin()]);
@@ -37,15 +37,16 @@ class AppointmentController extends Controller
     {
     
         $validated = $request->validated();
-
+    
         $user = auth()->user();
+
         Appointment::create([
             'user_id' => $user->id,
-            'title' => $request->title,
-            'description' => $request->description,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
-            'location' => $request->location
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'start_time' => $validated['start_time'],
+            'end_time' => $validated['end_time'],
+            'location' => $validated['location']
         ]);
 
         return to_route('appointments.list');
@@ -80,12 +81,12 @@ class AppointmentController extends Controller
         $validated = $request->validated();
     
         $appointment->update([
-            'title' => $request->title,
-            'descrition' => $request->description,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
-            'status' => $request->status,
-            'location' => $request->location
+            'title' => $validated['title'],
+            'description' => $validated['description'],
+            'start_time' => $validated['start_time'],
+            'end_time' => $validated['end_time'],
+            'status' => $validated['status'],
+            'location' => $validated['location']
         ]);
 
         return to_route('appointments.list');

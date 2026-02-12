@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\MailController;
 use App\Mail\FollowUp;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -19,10 +20,8 @@ Route::get('dashboard', function () {
     return to_route('appointments.list');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-
-
-
-Route::resource('/appointments',AppointmentController::class)->names([
+Route::middleware(['auth','verified'])->group(function () {
+    Route::resource('appointments',AppointmentController::class)->names([
     'index' => 'appointments.list',
     'create' => 'appointments.create',
     'store' => 'appointments.save',
@@ -30,19 +29,13 @@ Route::resource('/appointments',AppointmentController::class)->names([
     'edit' => 'appointments.modify',
     'update' => 'appointments.change',
     'destroy' => 'appointments.delete',
-])->middleware(['auth','verified']);
+    ]);
 
-// Mail sending
-
-Route::post('/mail/send',function (Request $request) {
-    if (!$request->to) {
-        return to_route('appointments.list');
-    }
-    Mail::to($request->to)->send(new FollowUp($request->subject, $request->message));
-    return to_route('appointments.list');
-})->middleware(['auth','verified']);
+    Route::post('/mail/send',[MailController::class,'sendMail']);
 
 
-Route::get('/export/appointments',[ExportController::class,'exportCSV'])->middleware(['auth','verified']);
+    Route::get('/export/appointments',[ExportController::class,'exportCSV']);
+
+});
 
 require __DIR__.'/settings.php';

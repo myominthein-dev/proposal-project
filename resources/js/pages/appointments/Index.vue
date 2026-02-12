@@ -45,7 +45,7 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200">
-            <tr v-for="appointment in displayedAppointments" :key="appointment.id" class="hover:bg-gray-700">
+            <tr v-for="appointment in filteredAppointments" :key="appointment.id" class="hover:bg-gray-200 dark:hover:bg-gray-700">
               <td class="px-6 py-4 font-medium text-gray-900 dark:text-gray-200">
                 {{ appointment.title }}
               </td>
@@ -91,7 +91,7 @@
           </tbody>
         </table>
 
-        <div v-if="displayedAppointments.length === 0"
+        <div v-if="filteredAppointments.length === 0"
           class="flex flex-col dark:bg-gray-300 items-center justify-center py-12 text-center">
           <Calendar class="mb-4 h-12 w-12 text-gray-400" />
           <p class="text-lg font-medium text-gray-900">No appointments</p>
@@ -163,7 +163,7 @@ const props = defineProps({
 
 const searchQuery = ref('')
 const appointments = ref([...props.appointments])
-const filteredAppointments = ref([])
+const filteredAppointments = ref([...props.appointments])
 
 const statusColors = {
   pending: 'bg-yellow-100 text-yellow-800',
@@ -172,22 +172,15 @@ const statusColors = {
   completed: 'bg-green-100 text-green-800',
 }
 
-const displayedAppointments = computed(() =>
-  filteredAppointments.value.length > 0
-    ? filteredAppointments.value
-    : appointments.value,
-)
 
 const handleSearch = async (e) => {
   const query = e.target.value
   if (query.length > 0) {
     filteredAppointments.value = appointments.value.filter((apt) =>
-      apt.title.toLowerCase().includes(query.toLowerCase()) ||
-      apt.description?.toLowerCase().includes(query.toLowerCase()) ||
-      apt.location?.toLowerCase().includes(query.toLowerCase()),
+      apt.title.toLowerCase().includes(query.trim().toLowerCase())
     )
   } else {
-    filteredAppointments.value = []
+    filteredAppointments.value = appointments.value
   }
 }
 
@@ -244,18 +237,6 @@ const submitMail = () => {
 
 }
 
-// ESC key close
-const handleEsc = (e) => {
-  if (e.key === "Escape") close()
-}
-
-onMounted(() => {
-  window.addEventListener("keydown", handleEsc)
-})
-
-onBeforeUnmount(() => {
-  window.removeEventListener("keydown", handleEsc)
-})
 </script>
 
 <style scoped></style>

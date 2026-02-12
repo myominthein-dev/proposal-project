@@ -17,7 +17,7 @@ class ExportController extends Controller
             abort(403,'Unauthorized');
         }
        
-        $appointments = Appointment::with('user')->whereLike('title',"%$request->search%")->get();
+        $appointments = Appointment::with('user')->whereLike('title',"%$request->search%")->orderBy('start_time','asc')->get();
         
         
          $headers = [
