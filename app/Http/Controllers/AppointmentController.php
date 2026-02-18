@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use App\Models\Appointment;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class AppointmentController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
@@ -27,6 +29,7 @@ class AppointmentController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Appointment::class);
         return Inertia::render('appointments/Create');
     }
 
@@ -57,6 +60,7 @@ class AppointmentController extends Controller
      */
     public function show(Appointment $appointment)
     {
+        $this->authorize('view', $appointment);
         $appointment = $appointment->load('user');
         return Inertia::render('appointments/Show',[
             'appointment' => $appointment
@@ -68,6 +72,7 @@ class AppointmentController extends Controller
      */
     public function edit(Appointment $appointment)
     {
+        $this->authorize('view',$appointment);
         return Inertia::render('appointments/Edit',[
             'appointment' => $appointment
         ]);
@@ -98,6 +103,7 @@ class AppointmentController extends Controller
      */
     public function destroy(Appointment $appointment)
     {
+        $this->authorize('delete', $appointment);
         $appointment->delete();
 
         return to_route('appointments.list');

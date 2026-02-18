@@ -43,10 +43,10 @@ withDefaults(
             <main
                 class="flex items-center justify-center w-full h-[500px] max-w-[335px] flex-col-reverse overflow-hidden rounded-lg lg:max-w-4xl lg:flex-row">
                 <div class="text-center  px-6">
-                    <h1 class="text-2xl md:text-6xl font-extrabold text-white drop-shadow-lg">
+                    <h1 class="text-2xl md:text-6xl font-extrabold text-gray-700 dark:text-white drop-shadow-lg">
                         Appointment Management System
                     </h1>
-                    <p class="mt-6 text-sm  md:text-xl text-white/90 max-w-2xl mx-auto">
+                    <p class="mt-6 text-sm  md:text-xl text-gray-500  dark:text-white/90 max-w-2xl mx-auto">
                         Organize, schedule, and manage your appointments efficiently with a secure and modern system.
                     </p>
                 </div>

@@ -13,7 +13,7 @@ class AppointmentPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->isAdmin();
     }
 
     /**
@@ -21,7 +21,8 @@ class AppointmentPolicy
      */
     public function view(User $user, Appointment $appointment): bool
     {
-        return false;
+        
+        return $user->isAdmin() || $user->id == $appointment->user_id;
     }
 
     /**
@@ -29,7 +30,7 @@ class AppointmentPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->email_verified_at != null;
     }
 
     /**
@@ -37,7 +38,7 @@ class AppointmentPolicy
      */
     public function update(User $user, Appointment $appointment): bool
     {
-        return false;
+        return $user->isAdmin() || $user->id == $appointment->user_id;
     }
 
     /**
@@ -45,7 +46,7 @@ class AppointmentPolicy
      */
     public function delete(User $user, Appointment $appointment): bool
     {
-        return false;
+        return $user->isAdmin() || $user->id == $appointment->user_id;
     }
 
     /**

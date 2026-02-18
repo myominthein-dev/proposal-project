@@ -1,8 +1,8 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/vue-starter-kit",
+    "name": "myominthein/appointment-management",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "A full-stack appointment management system built with Laravel 12, Vue 3, and Inertia.",
     "keywords": [
         "laravel",
         "framework"

@@ -36,6 +36,7 @@ class UpdateAppointmentRequest extends FormRequest
         ],
 
         'location' => ['nullable', 'string', 'max:255'],
+        'status' => ['required']
     ];
     }
 }

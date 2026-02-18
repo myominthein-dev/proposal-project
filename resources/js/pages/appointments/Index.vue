@@ -45,7 +45,7 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200">
-            <tr v-for="appointment in filteredAppointments" :key="appointment.id" class="hover:bg-gray-200 dark:hover:bg-gray-700">
+            <tr v-for="appointment in filteredAppointments" :key="appointment.id" class="hover:bg-gray-100 dark:hover:bg-gray-700">
               <td class="px-6 py-4 font-medium text-gray-900 dark:text-gray-200">
                 {{ appointment.title }}
               </td>
@@ -92,10 +92,10 @@
         </table>
 
         <div v-if="filteredAppointments.length === 0"
-          class="flex flex-col dark:bg-gray-300 items-center justify-center py-12 text-center">
+          class="flex flex-col items-center justify-center py-12 text-center">
           <Calendar class="mb-4 h-12 w-12 text-gray-400" />
-          <p class="text-lg font-medium text-gray-900">No appointments</p>
-          <p class="text-sm text-gray-600">
+          <p class="text-lg font-medium dark:text-gray-200 text-gray-900">No appointments</p>
+          <p class="text-sm dark:text-gray-400 text-gray-600">
             Create your first appointment to get started.
           </p>
         </div>
